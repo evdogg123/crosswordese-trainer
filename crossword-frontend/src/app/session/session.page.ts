@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,6 +13,12 @@ export class SessionPage implements OnInit {
   mostCommonLetters = [
     "E", "A", "R", "I", "O", "T", "N", "S", "L", "C", "U", "D", "P", "M", "H", "G", "B", "F", "Y", "W", "K", "V", "X", "Z", "J", "Q"
   ]
+  problemsLeft = 0;
+  scoreCts = {
+    "correct": 0,
+    "correct-with-hint": 0,
+    "incorrect": 0
+  }
   sessionParams = {};
   problemSet = {}
   currentProblem = {}
@@ -23,7 +29,8 @@ export class SessionPage implements OnInit {
   result = "";
   problemIdx = 0;
   hint = {};
-  constructor(public activatedRoute: ActivatedRoute, private router: Router, private http: HttpClient) {
+  problemFinished = false;
+  constructor(public activatedRoute: ActivatedRoute, private router: Router, private http: HttpClient, private elRef: ElementRef) {
 
   }
 
@@ -47,6 +54,7 @@ export class SessionPage implements OnInit {
       this.http.get<any>('http://localhost:3000/problemSet', { params: queryParams }).subscribe(data => {
         console.log(data);
         this.problemSet = data;
+        this.problemsLeft = Object.keys(this.problemSet).length;
         this.currentProblem = this.problemSet[0];
         this.setAnswerLength();
 
@@ -64,7 +72,13 @@ export class SessionPage implements OnInit {
 
   }
 
+  getScore() {
+    console.log(this.scoreCts)
+    let numerator = this.scoreCts["correct"] + this.scoreCts["correct-with-hint"] * .5;
+    let denominator = this.scoreCts["correct"] + this.scoreCts["incorrect"] + this.scoreCts["correct-with-hint"];
+    return String(numerator) + "/" + String(denominator);
 
+  }
 
   nextBox() {
     //Comment this
@@ -80,14 +94,17 @@ export class SessionPage implements OnInit {
 
   prevBox() {
     //Comment this
-    if (this.curLetterBox - 1 == this.hint["index"]) {
-      if (this.curLetterBox - 2 >= 0) {
-        this.curLetterBox -= 2
+    if (this.curLetterBox != 0) {
+      if (this.curLetterBox - 1 == this.hint["index"]) {
+        if (this.curLetterBox - 2 >= 0) {
+          this.curLetterBox -= 2
+        }
+      }
+      else {
+        this.curLetterBox -= 1
       }
     }
-    else {
-      this.curLetterBox -= 1
-    }
+
 
   }
   @HostListener('document:keyup', ['$event'])
@@ -95,7 +112,11 @@ export class SessionPage implements OnInit {
     //TODO: Refactor this
     console.log(event.key);
     let keyPressed = event.key;
-    if (keyPressed == "Backspace") {
+    if (keyPressed == "Enter") {
+      this.handleSubmit()
+    }
+
+    else if (keyPressed == "Backspace") {
       this.answer[this.curLetterBox] = "";
       this.prevBox()
     }
@@ -117,9 +138,6 @@ export class SessionPage implements OnInit {
     else if (keyPressed == "ArrowLeft") {
       this.prevBox()
 
-    }
-    else if (keyPressed == "Enter") {
-      this.handleSubmit()
     }
 
 
@@ -156,11 +174,17 @@ export class SessionPage implements OnInit {
 
 
   handleSubmit() {
-    if (this.result == "") {
+    console.log("submitted")
+
+    console.log(this.result)
+    if (!this.problemFinished) {
       this.checkResponse();
     }
     else {
-      this.nextQuestion();
+      setTimeout(() => {
+        this.nextQuestion();
+      }, 200);
+
     }
 
   }
@@ -173,6 +197,7 @@ export class SessionPage implements OnInit {
     this.currentProblem = this.problemSet[this.problemIdx];
     this.curLetterBox = 0;
     this.setAnswerLength();
+    this.problemFinished = false
 
   }
   checkResponse() {
@@ -181,11 +206,24 @@ export class SessionPage implements OnInit {
     let actualAnswer = this.currentProblem["Word"]
     if (answerStr == actualAnswer) {
       this.result = "Correct!"
+      if (Object.keys(this.hint).length != 0) {
+        this.scoreCts["correct-with-hint"] += 1
+      }
+      else {
+        this.scoreCts["correct"] += 1
+      }
     }
     else {
       this.result = "Incorrect. The Answer is " + actualAnswer
+      this.scoreCts["incorrect"] += 1
     }
     this.explanation = this.currentProblem["Explanation"];
+    this.answer = actualAnswer.split("")
+    this.problemFinished = true;
+
+
+    this.problemsLeft -= 1;
+
   }
 
 
@@ -200,7 +238,11 @@ export class SessionPage implements OnInit {
     }
   }
 
+  @HostListener('click') onClick() {
+    setTimeout(() => {
+      this.elRef.nativeElement.blur();
+    }, 200);
 
-
+  }
 }
 

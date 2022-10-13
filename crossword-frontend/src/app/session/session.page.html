@@ -1,15 +1,24 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>session</ion-title>
+  <ion-toolbar class="toptoolbar">
+    <ion-item lines="none">
+      <ion-item lines="none">
+        <ion-label class="badgeLabel">Problems Left</ion-label>
+        <ion-badge>{{problemsLeft}}</ion-badge>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label class="badgeLabel">Score</ion-label>
+        <ion-badge>{{getScore()}}</ion-badge>
+      </ion-item>
+    </ion-item>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div>
-    <h3>Clue:</h3>
-    <h5>
+    <h3>
       {{currentProblem.Clue}}
-    </h5>
+    </h3>
   </div>
   <div *ngIf="answer != {}" id="answerBox">
     <div *ngFor="let letter of answer;let i=index;" id="letterBox"
@@ -24,18 +33,21 @@
   <div id="explanationBox">
     {{explanation}}
   </div>
+
+  <ion-buttons>
+    <ion-button id="hintButton" (keydown.enter)="$event.preventDefault()" class="tooltipButton" fill="solid"
+      slot="primary" (click)="giveHint()" [class.button-disabled]="!hint">
+      <ion-icon name="bulb-outline"></ion-icon>
+    </ion-button>
+    <ion-button (keydown.enter)="$event.preventDefault()" tabindex="-1" id="nextButton" class="tooltipButton"
+      fill="solid" slot="end" (click)="handleSubmit()">
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </ion-button>
+
+  </ion-buttons>
+
   <ion-footer>
     <ion-toolbar>
-      <ion-buttons>
-        <ion-button id="hintButton" class="tooltipButton" fill="solid" slot="primary" (click)="giveHint()"
-          [class.button-disabled]="!hint">
-          <ion-icon name="bulb-outline"></ion-icon>
-        </ion-button>
-        <ion-button id="nextButton" class="tooltipButton" fill="solid" slot="end" (click)="handleSubmit()">
-          <ion-icon name="arrow-forward-outline"></ion-icon>
-        </ion-button>
-
-      </ion-buttons>
 
     </ion-toolbar>
   </ion-footer>
