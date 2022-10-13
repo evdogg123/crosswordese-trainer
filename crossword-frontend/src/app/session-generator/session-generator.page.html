@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Session</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
+    <ion-list>
+      <ion-item>
+        <ion-select placeholder="Select Puzzles" [multiple]="true" formControlName="puzzles">
+          <ion-select-option value="Mon">Mon</ion-select-option>
+          <ion-select-option value="Tue">Tue</ion-select-option>
+          <ion-select-option value="Wed">Wed</ion-select-option>
+          <ion-select-option value="Thu">Thu</ion-select-option>
+          <ion-select-option value="Fri">Fri</ion-select-option>
+          <ion-select-option value="Sat">Sat</ion-select-option>
+          <ion-select-option value="Sun">Sun</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-radio-group formControlName="length">
+      <ion-list-header>
+        <ion-label>Session Length</ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Long</ion-label>
+        <ion-radio slot="start" value="long" checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Medium</ion-label>
+        <ion-radio slot="start" value="medium" checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Short</ion-label>
+        <ion-radio slot="start" value="short"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+    <ion-radio-group formControlName="diversity">
+      <ion-list-header>
+        <ion-label>Word Diversity</ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>High</ion-label>
+        <ion-radio slot="start" value="high" checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Medium</ion-label>
+        <ion-radio slot="start" value="medium" checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Low</ion-label>
+        <ion-radio slot="start" value="low"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+    <ion-button type="submit" color="danger">Start Session</ion-button>
+  </form>
+</ion-content>

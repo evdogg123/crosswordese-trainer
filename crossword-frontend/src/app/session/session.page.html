@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>session</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <h3>Clue:</h3>
+    <h5>
+      {{currentProblem.Clue}}
+    </h5>
+  </div>
+  <div *ngIf="answer != {}" id="answerBox">
+    <div *ngFor="let letter of answer;let i=index;" id="letterBox"
+      [ngClass]="{'currentBox': i==curLetterBox, 'hintLetter': i==hint.index }">
+      {{letter}}
+    </div>
+  </div>
+
+  <div id="resultBox">
+    {{result}}
+  </div>
+  <div id="explanationBox">
+    {{explanation}}
+  </div>
+  <ion-footer>
+    <ion-toolbar>
+      <ion-buttons>
+        <ion-button id="hintButton" class="tooltipButton" fill="solid" slot="primary" (click)="giveHint()"
+          [class.button-disabled]="!hint">
+          <ion-icon name="bulb-outline"></ion-icon>
+        </ion-button>
+        <ion-button id="nextButton" class="tooltipButton" fill="solid" slot="end" (click)="handleSubmit()">
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </ion-button>
+
+      </ion-buttons>
+
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>
