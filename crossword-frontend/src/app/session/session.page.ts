@@ -68,12 +68,10 @@ export class SessionPage implements OnInit {
   setAnswerLength() {
     this.answerLength = this.currentProblem["Word"].length;
     this.answer = Array(this.answerLength).fill("");
-    console.log(this.answer);
 
   }
 
   getScore() {
-    console.log(this.scoreCts)
     let numerator = this.scoreCts["correct"] + this.scoreCts["correct-with-hint"] * .5;
     let denominator = this.scoreCts["correct"] + this.scoreCts["incorrect"] + this.scoreCts["correct-with-hint"];
     return String(numerator) + "/" + String(denominator);
@@ -227,7 +225,11 @@ export class SessionPage implements OnInit {
   }
 
 
-
+  selectBox(i) {
+    if (i != this.hint["index"]) {
+      this.curLetterBox = i
+    }
+  }
   findClass(i) {
     console.log(i);
     if (i == 0) {
