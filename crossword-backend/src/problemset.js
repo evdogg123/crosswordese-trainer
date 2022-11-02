@@ -1,13 +1,15 @@
 
 const helpers = require('./utilities/helpers');
 const constants = require('./utilities/constants');
+const { MONGO_URL } = require('../config')
 // Connection URI
 
 // Create a new MongoClient
 const { MongoClient } = require('mongodb');
 
 async function getProblems(days) {
-    const uri = "mongodb://localhost:27017/";
+    console.log(MONGO_URL)
+    const uri = MONGO_URL;
     const client = new MongoClient(uri);
 
     const query = { "Weekday": { $in: days } };
@@ -70,9 +72,9 @@ function createProblemSet(problems, problemCount, maxWordOccurence) {
 
 }
 
-async function getProblemSet(length, wordDiversity, days) {
+async function getProblemSet(problemCount, wordDiversity, days) {
     let problems = await getProblems(days);
-    let problemCount = constants.lengthToCount[length]
+    // let problemCount = constants.lengthToCount[length]
     problems = helpers.shuffle(problems)
     problems = problems.slice(0, problemCount)
     let maxWordOccurence = getMaxWordOccurence(wordDiversity, problemCount)
