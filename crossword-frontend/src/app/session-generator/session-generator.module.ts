@@ -7,6 +7,8 @@ import { TrainingGeneratorPageRoutingModule } from './session-generator-routing.
 
 import { TrainingGeneratorPage } from './session-generator.page';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { DaypickerComponent } from '../daypicker/daypicker.component'
 @NgModule({
   imports: [
     CommonModule,
@@ -15,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     IonicModule,
     TrainingGeneratorPageRoutingModule
   ],
-  declarations: [TrainingGeneratorPage]
+  declarations: [TrainingGeneratorPage, NavbarComponent, DaypickerComponent]
 })
 export class TrainingGeneratorPageModule {
 

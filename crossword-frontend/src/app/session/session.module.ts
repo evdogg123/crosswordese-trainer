@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SessionPageRoutingModule } from './session-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SessionPage } from './session.page';
-
+import { NavbarComponent } from '../navbar/navbar.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +16,6 @@ import { SessionPage } from './session.page';
     SessionPageRoutingModule,
     HttpClientModule
   ],
-  declarations: [SessionPage]
+  declarations: [SessionPage, NavbarComponent]
 })
 export class SessionPageModule { }

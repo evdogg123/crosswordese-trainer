@@ -23,9 +23,15 @@ export class TrainingGeneratorPage implements OnInit {
     let formData = this.ionicForm.value;
     console.log(formData.puzzles)
     if (typeof formData.puzzles == 'string') {
-      console.log("HERE")
+      console.log(formData)
       formData.puzzles = [formData.puzzles]
     }
     this.router.navigateByUrl('/session', { state: formData });
+  }
+
+
+  selectDay(selectedDay: string) {
+    let payload = { puzzles: [selectedDay], diversity: "low", numProblems: 75 }
+    this.router.navigateByUrl('/session', { state: payload });
   }
 }

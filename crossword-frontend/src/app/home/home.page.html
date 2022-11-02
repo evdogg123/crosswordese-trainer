@@ -1,9 +1,5 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Crossword Trainer
-    </ion-title>
-  </ion-toolbar>
+  <app-navbar></app-navbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -11,15 +7,29 @@
 
   <ion-buttons class="homePageButtons">
     <ion-button id="training" expand="block" class="homePageButton" (click)="goToPage('/session-generator')">
-      <ion-icon name="barbell-outline"></ion-icon>
-      Training
-    </ion-button>
+      <div class="buttonContent">
+        <ion-icon name="barbell-outline"></ion-icon>
+        Training
+      </div>
 
+    </ion-button>
+    <ion-button id="timeTrial" expand="block" class="homePageButton" (click)="goToPage('/time-trials')">
+      <div class="buttonContent">
+        <ion-icon name="hourglass-outline"></ion-icon>
+
+        Time Trials
+      </div>
+
+    </ion-button>
     <ion-button id="statistics" expand="block" class="homePageButton" (click)="goToPage('/statistics')">
-      <ion-icon name="stats-chart-outline"></ion-icon>
+      <div class="buttonContent">
+        <ion-icon name="stats-chart-outline"></ion-icon>
 
-      Statistics
+        Statistics
+      </div>
+
     </ion-button>
+
   </ion-buttons>
 
 

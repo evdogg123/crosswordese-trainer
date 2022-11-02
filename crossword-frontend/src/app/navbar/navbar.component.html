@@ -1,3 +1,15 @@
-<p>
-  navbar works!
-</p>
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-button ion-button icon-only (click)="goToPage('/home')" slot=" start">
+      <ion-icon name="home-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-item lines="none">
+    Home
+  </ion-item>
+  <ion-buttons slot="end">
+    <ion-button ion-button icon-only (click)="goToPage('/account')" slot="end">
+      <ion-icon name="person-circle-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>

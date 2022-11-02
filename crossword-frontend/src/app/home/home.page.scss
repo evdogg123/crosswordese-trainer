@@ -36,9 +36,14 @@
   color: white;
   width: 100%;
   height: fit-content;
-  border-radius: 10px;
   font-size: 10vw;
   padding: 1vw
+}
+
+.buttonContent {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
 }
 
 #training {
@@ -47,4 +52,8 @@
 
 #statistics {
   background-color: #664E7B;
+}
+
+#timeTrial {
+  background-color: #96305b;
 }

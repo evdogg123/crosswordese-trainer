@@ -1,29 +1,37 @@
 <ion-header>
-  <ion-toolbar class="toptoolbar">
-    <ion-item lines="none">
-      <ion-item lines="none">
-        <ion-label class="badgeLabel">Problems</ion-label>
-        <ion-badge>{{problemsLeft}}</ion-badge>
-      </ion-item>
-      <ion-item lines="none">
-        <ion-label class="badgeLabel">Score</ion-label>
-        <ion-badge>{{getScore()}}</ion-badge>
-      </ion-item>
-    </ion-item>
-
-  </ion-toolbar>
+  <app-navbar></app-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding no-scroll">
+  <div class="topContent">
+    <div>
+      <div class="badgeLabel">Problems</div>
+      <div class="badgeData">{{problemsLeft}}</div>
+    </div>
+    <div>
+      <div class="badgeLabel">Score</div>
+      <div class="badgeData"> {{getScore()}}
+      </div>
+    </div>
+    <div>
+      <ion-button id="hintButton" (keydown.enter)="$event.preventDefault()" class="tooltipButton" fill="solid"
+        (click)="giveHint()" [class.button-disabled]="!hint">
+        <ion-icon name="bulb-outline"></ion-icon>
+      </ion-button>
+
+    </div>
+  </div>
+
+
+
+
+
   <div class="clueBox">
     <div class="clue">
       {{currentProblem.Clue}}
     </div>
     <div class="hintButtonBox">
-      <ion-button id="hintButton" (keydown.enter)="$event.preventDefault()" class="tooltipButton" fill="solid"
-        slot="primary" (click)="giveHint()" [class.button-disabled]="!hint">
-        <ion-icon name="bulb-outline"></ion-icon>
-      </ion-button>
+
     </div>
 
 
@@ -34,7 +42,10 @@
       {{letter}}
     </div>
   </div>
-
+  <ion-button (keydown.enter)="$event.preventDefault()" tabindex="-1" id="nextButton" class="tooltipButton" fill="solid"
+    (click)="handleSubmit()">
+    <ion-icon name="arrow-forward-outline"></ion-icon>
+  </ion-button>
   <div id="resultBox">
     {{result}}
   </div>
@@ -44,16 +55,11 @@
 
   <ion-buttons>
 
-    <ion-button (keydown.enter)="$event.preventDefault()" tabindex="-1" id="nextButton" class="tooltipButton"
-      fill="solid" slot="end" (click)="handleSubmit()">
-      <ion-icon name="arrow-forward-outline"></ion-icon>
-    </ion-button>
+    <ion-textarea inputmode="numeric" display="none"></ion-textarea>
 
   </ion-buttons>
 
   <ion-footer>
-    <ion-toolbar>
 
-    </ion-toolbar>
   </ion-footer>
 </ion-content>

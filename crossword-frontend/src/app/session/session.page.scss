@@ -30,9 +30,9 @@
     color: #414c75
 }
 
-.badgeLabel {
-    margin-right: 1vw;
-}
+// .badgeLabel {
+//     margin-right: 1vw;
+// }
 
 .clueBox {
     display: flex;
@@ -53,4 +53,19 @@
     flex-direction: column;
     justify-content: center;
     margin: 1vh;
+}
+
+.no-scroll {
+    --overflow: hidden;
+}
+
+.topContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.badgeData {
+    display: flex;
+    justify-content: center;
 }

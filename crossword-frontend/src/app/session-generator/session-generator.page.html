@@ -1,10 +1,13 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Create Session</ion-title>
-  </ion-toolbar>
+  <app-navbar></app-navbar>
 </ion-header>
 
 <ion-content>
+  <app-daypicker (dayPickEvent)="selectDay($event)">
+  </app-daypicker>
+</ion-content>
+
+<!-- <ion-content lines="none">
   <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
     <ion-list>
       <ion-item>
@@ -55,4 +58,4 @@
     </ion-radio-group>
     <ion-button type="submit" color="danger">Start Session</ion-button>
   </form>
-</ion-content>
+</ion-content> -->
